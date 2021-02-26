@@ -1,0 +1,3 @@
+/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/cmake-build-debug/CMakeFiles/main.dir

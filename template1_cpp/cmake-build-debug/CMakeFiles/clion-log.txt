@@ -1,0 +1,1 @@
+CMakeLists.txt not found in /home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/template1_cpp Select CMakeLists.txt
