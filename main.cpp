@@ -14,6 +14,7 @@ struct InputState
   bool firstMouse = true;
   bool captureMouse         = true;  // Мышка захвачена нашим приложением или нет?
   bool capturedMouseJustNow = false;
+  int x = 4;
 } static Input;
 
 
