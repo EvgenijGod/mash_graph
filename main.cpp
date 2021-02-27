@@ -4,12 +4,12 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-#include "shared.h"
+//#include "shared.h"
 
 #define GLFW_DLL
 
 #include <GLFW/glfw3.h>
-
+#include "SpriteManager.h"
 
 struct InputState {
     bool keys[1024]{}; //массив состояний кнопок - нажата/не нажата
@@ -158,32 +158,41 @@ int main(int argc, char **argv) {
     GL_CHECK_ERRORS;
 
     //game loop
-    std::vector<std::string> floors = {"/floors/first.txt"};
+    std::vector<std::string> floors = {"/floors/first_floor.txt"};
     bool floor_complete = false;
-//    for (auto &floor_path : floors) {
-//        if (floor_complete == false) {
-//            break;
-//        }
-//        std::string cur_floor = read_file(floor_path);
-//        //for (int i = 0; i < WINDOW_HEIGHT; i+=)
-//
-//    }
-    while (!glfwWindowShouldClose(window)) {
-        GLfloat currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-        glfwPollEvents();
+    for (auto &floor_path : floors) {
+        std::string cur_floor = read_file(floor_path);
+        SpriteManager mg(screenBuffer);
 
-        processPlayerMovement(player);
-        player.Draw(screenBuffer);
+        for (int i = 0; i < WINDOW_HEIGHT / tileSize; ++i) {
+            for (int j = 0; j < WINDOW_WIDTH / tileSize; ++j) {
+                int cur_ind = i * tileSize + j;
+                unsigned char cur_tile = cur_floor[cur_ind];
+                mg.add(cur_tile, i * tileSize, j * tileSize);
+            }
+        }
+        while (!glfwWindowShouldClose(window)) {
+            GLfloat currentFrame = glfwGetTime();
+            deltaTime = currentFrame - lastFrame;
+            lastFrame = currentFrame;
+            glfwPollEvents();
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        GL_CHECK_ERRORS;
-        glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data());
-        GL_CHECK_ERRORS;
+            processPlayerMovement(player);
+            mg.draw();
+            player.Draw(screenBuffer);
 
-        glfwSwapBuffers(window);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            GL_CHECK_ERRORS;
+            glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data());
+            GL_CHECK_ERRORS;
+
+            glfwSwapBuffers(window);
+        }
+        if (floor_complete == false) {
+            break;
+        }
     }
+
 
     glfwTerminate();
     return 0;

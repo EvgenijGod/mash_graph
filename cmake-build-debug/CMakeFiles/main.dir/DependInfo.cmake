@@ -16,6 +16,8 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Image.cpp" "/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/cmake-build-debug/CMakeFiles/main.dir/Image.cpp.o"
   "/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Player.cpp" "/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/cmake-build-debug/CMakeFiles/main.dir/Player.cpp.o"
+  "/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Sprite.cpp" "/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/cmake-build-debug/CMakeFiles/main.dir/Sprite.cpp.o"
+  "/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/SpriteManager.cpp" "/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/cmake-build-debug/CMakeFiles/main.dir/SpriteManager.cpp.o"
   "/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/main.cpp" "/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/cmake-build-debug/CMakeFiles/main.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

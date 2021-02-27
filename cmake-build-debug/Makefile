@@ -197,6 +197,60 @@ Player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Player.cpp.s
 .PHONY : Player.cpp.s
 
+Sprite.o: Sprite.cpp.o
+
+.PHONY : Sprite.o
+
+# target to build an object file
+Sprite.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Sprite.cpp.o
+.PHONY : Sprite.cpp.o
+
+Sprite.i: Sprite.cpp.i
+
+.PHONY : Sprite.i
+
+# target to preprocess a source file
+Sprite.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Sprite.cpp.i
+.PHONY : Sprite.cpp.i
+
+Sprite.s: Sprite.cpp.s
+
+.PHONY : Sprite.s
+
+# target to generate assembly for a file
+Sprite.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Sprite.cpp.s
+.PHONY : Sprite.cpp.s
+
+SpriteManager.o: SpriteManager.cpp.o
+
+.PHONY : SpriteManager.o
+
+# target to build an object file
+SpriteManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/SpriteManager.cpp.o
+.PHONY : SpriteManager.cpp.o
+
+SpriteManager.i: SpriteManager.cpp.i
+
+.PHONY : SpriteManager.i
+
+# target to preprocess a source file
+SpriteManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/SpriteManager.cpp.i
+.PHONY : SpriteManager.cpp.i
+
+SpriteManager.s: SpriteManager.cpp.s
+
+.PHONY : SpriteManager.s
+
+# target to generate assembly for a file
+SpriteManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/SpriteManager.cpp.s
+.PHONY : SpriteManager.cpp.s
+
 glad.o: glad.c.o
 
 .PHONY : glad.o
@@ -266,6 +320,12 @@ help:
 	@echo "... Player.o"
 	@echo "... Player.i"
 	@echo "... Player.s"
+	@echo "... Sprite.o"
+	@echo "... Sprite.i"
+	@echo "... Sprite.s"
+	@echo "... SpriteManager.o"
+	@echo "... SpriteManager.i"
+	@echo "... SpriteManager.s"
 	@echo "... glad.o"
 	@echo "... glad.i"
 	@echo "... glad.s"
