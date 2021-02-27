@@ -11,7 +11,7 @@ set(SOURCE_FILES
         glad.c
         Image.cpp
         Player.cpp
-        main.cpp)
+        main.cpp Sprite.h shared.h)
 
 set(ADDITIONAL_INCLUDE_DIRS
         dependencies/include/GLAD)

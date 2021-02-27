@@ -20,4 +20,5 @@ CMakeFiles/main.dir/main.cpp.o: ../Image.h
 CMakeFiles/main.dir/main.cpp.o: ../Player.h
 CMakeFiles/main.dir/main.cpp.o: ../common.h
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
+CMakeFiles/main.dir/main.cpp.o: ../shared.h
 
