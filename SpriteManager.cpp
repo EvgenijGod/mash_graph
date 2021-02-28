@@ -43,7 +43,7 @@ void SpriteManager::add(unsigned char cur_tile, int heigt_pos, int width_pos) {
             );
             break;
         case 'x':
-            tmp = new Sprite("break_able_wall",
+            tmp = new Sprite("exit",
                              "../resources/envs/image_part_128.png",
                              {width_pos, heigt_pos},
                              LAYER::BACK_LAYER

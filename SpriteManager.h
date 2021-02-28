@@ -7,7 +7,7 @@
 
 #include "Sprite.h"
 #include <vector>
-
+#include "Player.h"
 
 class SpriteManager {
 public:
@@ -16,6 +16,8 @@ public:
     void add(unsigned char cur_tile, int heigt_pos, int width_pos);
 
     void draw();
+
+    friend class Player;
 
 private:
     std::vector<Sprite*> _back;
