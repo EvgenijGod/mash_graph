@@ -3,10 +3,10 @@
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
 
-constexpr int tileSize = 16;
+constexpr int tileSize = 32;
 
 
-constexpr GLsizei WINDOW_WIDTH = 1024, WINDOW_HEIGHT = 1024;
+constexpr GLsizei WINDOW_WIDTH = 1024 - tileSize, WINDOW_HEIGHT = 1024 - tileSize;
 
 class Position {
 public:
