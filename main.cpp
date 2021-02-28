@@ -110,8 +110,9 @@ std::string read_file(std::string &str) {
     std::fstream floor_input(str);
     std::string tmp{}, ans{};
     while (std::getline(floor_input, tmp)) {
-        ans.append(tmp);
+        ans = tmp + ans;
     }
+
     return ans;
 }
 
@@ -140,7 +141,6 @@ int main(int argc, char **argv) {
 
     if (initGL() != 0)
         return -1;
-
     //Reset any OpenGL errors which could be present for some reason
     GLenum gl_error = glGetError();
     while (gl_error != GL_NO_ERROR)
@@ -149,28 +149,27 @@ int main(int argc, char **argv) {
     Point starting_pos{.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2};
     Player player{starting_pos, tileSize};
 
-    Image img("../resources/alex.png");
-    Image screenBuffer(WINDOW_WIDTH + tileSize, WINDOW_HEIGHT+ tileSize, 4);
+    Image img("../resources/default16x16.png");
+    Image screenBuffer(WINDOW_WIDTH, WINDOW_HEIGHT, 4);
 
-    glViewport(0, 0, WINDOW_WIDTH + tileSize, WINDOW_HEIGHT + tileSize);
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     GL_CHECK_ERRORS;
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     GL_CHECK_ERRORS;
-
     //game loop
     std::vector<std::string> floors = {"../floors/first_floor.txt"};
     bool floor_complete = false;
     for (auto &floor_path : floors) {
         std::string cur_floor = read_file(floor_path);
         SpriteManager mg(screenBuffer);
-
         for (int i = 0; i < WINDOW_HEIGHT / tileSize; ++i) {
             for (int j = 0; j < WINDOW_WIDTH / tileSize; ++j) {
-                int cur_ind = i * tileSize + j;
+                int cur_ind = j * (WINDOW_WIDTH / tileSize) + i;
                 unsigned char cur_tile = cur_floor[cur_ind];
                 mg.add(cur_tile, i * tileSize, j * tileSize);
             }
         }
+
         while (!glfwWindowShouldClose(window)) {
             GLfloat currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
@@ -183,7 +182,7 @@ int main(int argc, char **argv) {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             GL_CHECK_ERRORS;
-            glDrawPixels(WINDOW_WIDTH + tileSize, WINDOW_HEIGHT + tileSize, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data());
+            glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data());
             GL_CHECK_ERRORS;
 
             glfwSwapBuffers(window);
@@ -192,8 +191,6 @@ int main(int argc, char **argv) {
             break;
         }
     }
-
-
     glfwTerminate();
     return 0;
 }

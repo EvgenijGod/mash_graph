@@ -9,11 +9,20 @@
 #include "stb_image_write.h"
 
 #include <iostream>
+#include <algorithm>
 
-
-Image::Image(const std::string &a_path) {
-    if ((data = (Pixel *) stbi_load(a_path.c_str(), &width, &height, &channels, 0)) != nullptr) {
+Image::Image(const std::string &a_path, Position start, Position end, bool rotate): rotate(rotate) {
+    if ((data = (Pixel *) stbi_load(a_path.c_str(), &width, &height, &channels, 4)) != nullptr) {
         size = width * height * channels;
+    }
+
+    if (end == Position{0, 0}) {
+        drawable_data = data;
+        drawable_width = width;
+        drawable_height = height;
+    } else {
+        this->CutPart(start, end);
+        cutted_data = true;
     }
 }
 
@@ -49,9 +58,27 @@ int Image::Save(const std::string &a_path) {
 }
 
 Image::~Image() {
-    if (self_allocated)
+    if (self_allocated) {
         delete[] data;
+        if (cutted_data) {
+            delete[] drawable_data;
+        }
+    }
     else {
         stbi_image_free(data);
     }
+}
+
+void Image::CutPart(Position start, Position end) {
+    int new_width = end.x - start.x;
+    int new_height = end.y - start.y;
+    Pixel *drawable_part = new Pixel[new_width * new_height]{};
+    for (int i = start.y; i < end.y; i++) {
+        for (int j = start.x; j < end.x; j++) {
+            drawable_part[(i - start.y) * new_width + j - start.x] = data[i * width + j];
+        }
+    }
+    drawable_height = new_height;
+    drawable_width = new_width;
+    drawable_data = drawable_part;
 }

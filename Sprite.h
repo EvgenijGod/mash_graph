@@ -13,7 +13,12 @@
 
 class Sprite {
 public:
-    Sprite(const std::string &type, const std::string &file, Position position, LAYER layer);
+    Sprite(const std::string &type,
+           const std::string &file,
+           Position position,
+           LAYER layer,
+           Position start_corner = {0, 0},
+           Position end_corner = {0, 0});
 
     void draw(Image &screen);
 
@@ -24,7 +29,8 @@ public:
 private:
     std::string type;
     Image image;
-    Position pos;
+    Position pos, start_corner, end_corner;
     int img_width, img_height;
     LAYER draw_layer;
+    enum Side {UP, LEFT, RIGHT, DOWN} side = UP;
 };
