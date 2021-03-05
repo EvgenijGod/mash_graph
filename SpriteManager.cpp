@@ -5,7 +5,7 @@
 #include "SpriteManager.h"
 #include <iostream>
 
-void SpriteManager::add(unsigned char cur_tile, int heigt_pos, int width_pos) {
+void SpriteManager::add(unsigned char cur_tile, int width_pos, int heigt_pos) {
     Sprite *tmp;
     //std::cout << cur_tile << std::endl;
     switch (cur_tile) {
@@ -13,17 +13,29 @@ void SpriteManager::add(unsigned char cur_tile, int heigt_pos, int width_pos) {
             tmp = new Sprite("empty",
                              "../resources/default16x16.png",
                              {width_pos, heigt_pos},
-                             LAYER::BACK_LAYER
+                             LAYER::BACK_LAYER,
+                             Position{0, 0},
+                             Position{16, 16}
             );
             break;
         case '@':
-            tmp = new Sprite("player", "../resources/default16x16.png", {width_pos, heigt_pos}, LAYER::BACK_LAYER);
+            player = Player{{width_pos, heigt_pos},
+                            tileSize, map};
+            tmp = new Sprite("ground",
+                             "../resources/envs/image_part_002.png",
+                             {width_pos, heigt_pos},
+                             LAYER::BACK_LAYER,
+                             Position{0, 0},
+                             Position{16, 16}
+            );
             break;
         case '.':
             tmp = new Sprite("ground",
                              "../resources/envs/image_part_002.png",
                              {width_pos, heigt_pos},
-                             LAYER::BACK_LAYER
+                             LAYER::BACK_LAYER,
+                             Position{0, 0},
+                             Position{16, 16}
             );
             break;
         case '#':
@@ -39,20 +51,30 @@ void SpriteManager::add(unsigned char cur_tile, int heigt_pos, int width_pos) {
             tmp = new Sprite("break_able_wall",
                              "../resources/envs/image_part_110.png",
                              {width_pos, heigt_pos},
-                             LAYER::BACK_LAYER
+                             LAYER::BACK_LAYER,
+                             Position{0, 0},
+                             Position{16, 16}
             );
             break;
         case 'x':
             tmp = new Sprite("exit",
                              "../resources/envs/image_part_128.png",
                              {width_pos, heigt_pos},
-                             LAYER::BACK_LAYER
-            );            break;
+                             LAYER::BACK_LAYER,
+                             Position{0, 0},
+                             Position{16, 16}
+            );
+            break;
         default:
-            tmp = new Sprite("empty", "../resources/default16x16.png", {width_pos, heigt_pos}, LAYER::BACK_LAYER);
+            tmp = new Sprite("empty",
+                             "../resources/default16x16.png",
+                             {width_pos, heigt_pos},
+                             LAYER::BACK_LAYER,
+                             Position{0, 0},
+                             Position{16, 16});
             break;
     }
-
+    map->insert({{width_pos / tileSize, heigt_pos / tileSize}, tmp->get_type()});
     if (tmp->get_layer() == LAYER::BACK_LAYER) {
         _back.emplace_back(tmp);
     } else if (tmp->get_layer() == LAYER::FRONT_LAYER) {
@@ -68,4 +90,6 @@ void SpriteManager::draw() {
     for (auto it : _front) {
         it->draw(screen);
     }
+
+    player.Draw(screen);
 }

@@ -11,35 +11,35 @@ Sprite::Sprite(const std::string &type,
                LAYER layer,
                Position start_corner ,
                Position end_corner)
-        : image(file, start_corner, end_corner), pos(position), draw_layer(layer), start_corner(start_corner), end_corner(end_corner) {
+        : type(type), image(file, start_corner, end_corner), pos(position), draw_layer(layer), start_corner(start_corner), end_corner(end_corner) {
     img_height = image.Height();
     img_width = image.Width();
     //std::cout << img_width << " " << img_height << "\n";
 }
 
 void Sprite::draw(Image &screen) {
-    for (int i = pos.y; i < pos.y + img_height; i++) {
-        for (int j = pos.x; j < pos.x + img_width; j++) {
+    for (int y = pos.y; y < pos.y + img_height; y++) {
+        for (int x = pos.x; x < pos.x + img_width; x++) {
             Pixel tmp{};
             switch (side) {
-                case DOWN: {
-                    tmp = image.GetPixel(j - pos.x, i - pos.y);
+                case ROTATE_LEFT: {
+                    tmp = image.GetPixel(x - pos.x, y - pos.y);
                     break;
                 }
-                case LEFT: {
-                    tmp = image.GetPixel(i - pos.y, j - pos.x);
+                case ROTATE_DOWN_AND_CAPTURE: {
+                    tmp = image.GetPixel(y - pos.y, x - pos.x);
                     break;
                 }
-                case UP: {
-                    tmp = image.GetPixel(i - pos.y, img_width - (j - pos.x) - 1);
+                case NORMAL: {
+                    tmp = image.GetPixel(x - pos.x, img_height - (y - pos.y) - 1);
                     break;
                 }
-                case RIGHT: {
-                    tmp = image.GetPixel(img_height - (i - pos.y) - 1, img_width - (j - pos.x) - 1);
+                case CAPTURE: {
+                    tmp = image.GetPixel(img_height - (y - pos.y) - 1, img_width - (x - pos.x) - 1);
                     break;
                 }
             }
-            screen.PutPixel(i, j, tmp);
+            screen.PutPixel(x, y, tmp);
         }
     }
 }

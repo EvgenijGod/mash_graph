@@ -2,6 +2,9 @@
 #define MAIN_PLAYER_H
 
 #include "Image.h"
+#include <map>
+#include "Sprite.h"
+
 
 struct Point {
     int x;
@@ -16,8 +19,14 @@ enum class MovementDir {
 };
 
 struct Player {
-    explicit Player(Point pos = {.x = 10, .y = 10}, int tileSize = 16) :
-            coords(pos), old_coords(coords), tileSize(tileSize) {};
+    explicit Player(Point pos = {1, 1}, int tileSize = 16, std::map<Position, std::string> *map = nullptr) :
+            coords(pos), old_coords(coords), tileSize(tileSize) {
+        this->map = map;
+    };
+
+    Player (const Player &tmp): coords(tmp.coords), old_coords(coords), tileSize(tmp.tileSize) {
+        map = tmp.map;
+    };
 
     bool Moved() const;
 
@@ -26,6 +35,7 @@ struct Player {
     void Draw(Image &screen);
 
 private:
+    std::map<Position, std::string> *map;
     Point coords{.x = 10, .y = 10};
     Point old_coords{.x = 10, .y = 10};
     Pixel color{.r = 255, .g = 255, .b = 0, .a = 255};

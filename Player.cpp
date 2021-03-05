@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include <iostream>
 
 bool Player::Moved() const {
     if (coords.x == old_coords.x && coords.y == old_coords.y)
@@ -9,11 +9,32 @@ bool Player::Moved() const {
 }
 
 void Player::ProcessInput(MovementDir dir) {
+
     int move_dist = move_speed * 1;
+    auto iter = map->end();
+    std::string name{"ground"};
+
+    iter = map->find({coords.x / tileSize, (coords.y ) / tileSize });
+    if (iter == map->end()) {
+        std::cout << "Map Error\n";
+        return;
+    }
+    name = iter->second;
+    std::cout << name << " " << iter->first.x << ":" << iter->first.y << "\n";
+
     switch (dir) {
         case MovementDir::UP:
-            old_coords.y = coords.y;
-            coords.y += move_dist;
+            iter = map->find({coords.x / tileSize, (coords.y + move_dist) / tileSize });
+            if (iter == map->end()) {
+                std::cout << "Map Error\n";
+                return;
+            }
+            name = iter->second;
+            //std::cout << name << " " << iter->first.x << ":" << iter->first.y << "\n";
+            if (true) {
+                old_coords.y = coords.y;
+                coords.y += move_dist;
+            }
             break;
         case MovementDir::DOWN:
             old_coords.y = coords.y;
@@ -48,3 +69,4 @@ void Player::Draw(Image &screen) {
         }
     }
 }
+

@@ -1,6 +1,5 @@
 #include "common.h"
 #include "Image.h"
-#include "Player.h"
 #include <vector>
 #include <algorithm>
 #include <sstream>
@@ -110,7 +109,7 @@ std::string read_file(std::string &str) {
     std::fstream floor_input(str);
     std::string tmp{}, ans{};
     while (std::getline(floor_input, tmp)) {
-        ans = tmp + ans;
+        ans = ans + tmp;
     }
 
     return ans;
@@ -146,8 +145,8 @@ int main(int argc, char **argv) {
     while (gl_error != GL_NO_ERROR)
         gl_error = glGetError();
 
-    Point starting_pos{.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2};
-    Player player{starting_pos, tileSize};
+//    Point starting_pos{.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2};
+//    Player player{starting_pos, tileSize};
 
     Image img("../resources/default16x16.png");
     Image screenBuffer(WINDOW_WIDTH, WINDOW_HEIGHT, 4);
@@ -164,10 +163,12 @@ int main(int argc, char **argv) {
         SpriteManager mg(screenBuffer);
         for (int i = 0; i < WINDOW_HEIGHT / tileSize; ++i) {
             for (int j = 0; j < WINDOW_WIDTH / tileSize; ++j) {
-                int cur_ind = j * (WINDOW_WIDTH / tileSize) + i;
+                int cur_ind = i * (WINDOW_WIDTH / tileSize) + j;
                 unsigned char cur_tile = cur_floor[cur_ind];
-                mg.add(cur_tile, i * tileSize, j * tileSize);
+                std::cout << cur_tile;
+                mg.add(cur_tile, j * tileSize, (WINDOW_HEIGHT / tileSize - i - 1) * tileSize);
             }
+            std::cout << std::endl;
         }
 
         while (!glfwWindowShouldClose(window)) {
@@ -176,9 +177,9 @@ int main(int argc, char **argv) {
             lastFrame = currentFrame;
             glfwPollEvents();
 
-            processPlayerMovement(player);
+            processPlayerMovement(mg.get_player());
             mg.draw();
-            player.Draw(screenBuffer);
+            //player.Draw(screenBuffer);
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             GL_CHECK_ERRORS;

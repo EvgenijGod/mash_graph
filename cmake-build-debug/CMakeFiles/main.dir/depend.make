@@ -14,6 +14,7 @@ CMakeFiles/main.dir/Image.cpp.o: ../stb_image_write.h
 CMakeFiles/main.dir/Player.cpp.o: ../Image.h
 CMakeFiles/main.dir/Player.cpp.o: ../Player.cpp
 CMakeFiles/main.dir/Player.cpp.o: ../Player.h
+CMakeFiles/main.dir/Player.cpp.o: ../Sprite.h
 CMakeFiles/main.dir/Player.cpp.o: ../shared.h
 
 CMakeFiles/main.dir/Sprite.cpp.o: ../Image.h
@@ -22,6 +23,7 @@ CMakeFiles/main.dir/Sprite.cpp.o: ../Sprite.h
 CMakeFiles/main.dir/Sprite.cpp.o: ../shared.h
 
 CMakeFiles/main.dir/SpriteManager.cpp.o: ../Image.h
+CMakeFiles/main.dir/SpriteManager.cpp.o: ../Player.h
 CMakeFiles/main.dir/SpriteManager.cpp.o: ../Sprite.h
 CMakeFiles/main.dir/SpriteManager.cpp.o: ../SpriteManager.cpp
 CMakeFiles/main.dir/SpriteManager.cpp.o: ../SpriteManager.h

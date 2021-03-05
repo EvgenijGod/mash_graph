@@ -26,11 +26,13 @@ public:
         return draw_layer;
     }
 
+    std::string get_type() const {return type;}
+
 private:
     std::string type;
     Image image;
     Position pos, start_corner, end_corner;
     int img_width, img_height;
     LAYER draw_layer;
-    enum Side {UP, LEFT, RIGHT, DOWN} side = UP;
+    enum Rotation {NORMAL, ROTATE_DOWN_AND_CAPTURE, CAPTURE, ROTATE_LEFT} side = NORMAL;
 };
