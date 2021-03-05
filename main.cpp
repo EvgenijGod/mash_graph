@@ -165,10 +165,10 @@ int main(int argc, char **argv) {
             for (int j = 0; j < WINDOW_WIDTH / tileSize; ++j) {
                 int cur_ind = i * (WINDOW_WIDTH / tileSize) + j;
                 unsigned char cur_tile = cur_floor[cur_ind];
-                std::cout << cur_tile;
+                //std::cout << cur_tile;
                 mg.add(cur_tile, j * tileSize, (WINDOW_HEIGHT / tileSize - i - 1) * tileSize);
             }
-            std::cout << std::endl;
+            //std::cout << std::endl;
         }
 
         while (!glfwWindowShouldClose(window)) {

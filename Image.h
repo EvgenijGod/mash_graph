@@ -28,7 +28,9 @@ struct Image {
 
     Pixel *Data() { return data; }
 
-    Pixel GetPixel(int x, int y) { return data[width * y + x]; }
+    Pixel GetPixel_part(int x, int y) { return drawable_data[drawable_width * y + x]; }
+
+    Pixel GetPixel_full(int x, int y) { return data[width * y + x]; }
 
     void PutPixel(int x, int y, const Pixel &pix) { data[width * y + x] = pix; }
 

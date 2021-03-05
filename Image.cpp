@@ -72,6 +72,7 @@ Image::~Image() {
 void Image::CutPart(Position start, Position end) {
     int new_width = end.x - start.x;
     int new_height = end.y - start.y;
+    delete []drawable_data;
     Pixel *drawable_part = new Pixel[new_width * new_height]{};
     for (int i = start.y; i < end.y; i++) {
         for (int j = start.x; j < end.x; j++) {

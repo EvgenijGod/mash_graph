@@ -14,7 +14,7 @@ void Player::ProcessInput(MovementDir dir) {
     std::string name{"ground"};
 
 
-    const int bias = tileSize / 3;
+    const int bias = tileSize / 3 * 2;
     switch (dir) {
         case MovementDir::UP:
             iter = map->find({coords.x / tileSize, (coords.y + move_dist + bias ) / tileSize });

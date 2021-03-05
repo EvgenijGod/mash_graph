@@ -35,4 +35,7 @@ private:
     int img_width, img_height;
     LAYER draw_layer;
     enum Rotation {NORMAL, ROTATE_DOWN_AND_CAPTURE, CAPTURE, ROTATE_LEFT} side = NORMAL;
+
+    unsigned short animation = 0;
+    unsigned short step = 30;
 };
