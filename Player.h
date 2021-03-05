@@ -19,7 +19,7 @@ enum class MovementDir {
 };
 
 struct Player {
-    explicit Player(Point pos = {1, 1}, int tileSize = 16, std::map<Position, std::string> *map = nullptr) :
+    explicit Player(Point pos = {1, 1}, int tileSize = 16, std::map<Position, Sprite*> *map = nullptr) :
             coords(pos), old_coords(coords), tileSize(tileSize) {
         this->map = map;
     };
@@ -35,7 +35,7 @@ struct Player {
     void Draw(Image &screen);
 
 private:
-    std::map<Position, std::string> *map;
+    std::map<Position, Sprite*> *map;
     Point coords{.x = 10, .y = 10};
     Point old_coords{.x = 10, .y = 10};
     Pixel color{.r = 255, .g = 255, .b = 0, .a = 255};

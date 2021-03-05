@@ -9,44 +9,62 @@ bool Player::Moved() const {
 }
 
 void Player::ProcessInput(MovementDir dir) {
-
-    int move_dist = move_speed * 1;
+    int move_dist = move_speed * 0.8;
     auto iter = map->end();
     std::string name{"ground"};
 
-    iter = map->find({coords.x / tileSize, (coords.y ) / tileSize });
-    if (iter == map->end()) {
-        std::cout << "Map Error\n";
-        return;
-    }
-    name = iter->second;
-    std::cout << name << " " << iter->first.x << ":" << iter->first.y << "\n";
 
+    const int bias = tileSize / 3;
     switch (dir) {
         case MovementDir::UP:
-            iter = map->find({coords.x / tileSize, (coords.y + move_dist) / tileSize });
+            iter = map->find({coords.x / tileSize, (coords.y + move_dist + bias ) / tileSize });
             if (iter == map->end()) {
                 std::cout << "Map Error\n";
                 return;
             }
-            name = iter->second;
-            //std::cout << name << " " << iter->first.x << ":" << iter->first.y << "\n";
-            if (true) {
+            name = iter->second->get_type();
+            if (name == "ground" || name == "empty" || name == "exit") {
                 old_coords.y = coords.y;
                 coords.y += move_dist;
             }
             break;
         case MovementDir::DOWN:
-            old_coords.y = coords.y;
-            coords.y -= move_dist;
+            iter = map->find({coords.x / tileSize, (coords.y - move_dist) / tileSize });
+            if (iter == map->end()) {
+                std::cout << "Map Error\n";
+                return;
+            }
+            name = iter->second->get_type();
+            if (name == "ground" || name == "empty" || name == "exit") {
+                old_coords.y = coords.y;
+                coords.y -= move_dist;
+            }
             break;
         case MovementDir::LEFT:
-            old_coords.x = coords.x;
-            coords.x -= move_dist;
+            iter = map->find({(coords.x - move_dist) / tileSize, coords.y / tileSize });
+            if (iter == map->end()) {
+                std::cout << "Map Error\n";
+                return;
+            }
+            name = iter->second->get_type();
+            if (name == "ground" || name == "empty" || name == "exit") {
+                old_coords.x = coords.x;
+                coords.x -= move_dist;
+            }
             break;
         case MovementDir::RIGHT:
-            old_coords.x = coords.x;
-            coords.x += move_dist;
+            iter = map->find({(coords.x + move_dist + bias) / tileSize, coords.y / tileSize });
+            if (iter == map->end()) {
+                std::cout << "Map Error\n";
+                return;
+            }
+            name = iter->second->get_type();
+            if (name == "ground" || name == "empty" || name == "exit") {
+                old_coords.x = coords.x;
+                coords.x += move_dist;
+            }
+//            old_coords.x = coords.x;
+//            coords.x += move_dist;
             break;
         default:
             break;

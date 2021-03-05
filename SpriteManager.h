@@ -34,7 +34,7 @@ public:
 private:
     std::vector<Sprite*> _back;
     std::vector<Sprite*> _front;
-    std::map<Position, std::string> *map = new std::map<Position, std::string>();
+    std::map<Position, Sprite*> *map = new std::map<Position, Sprite*>();
     Image screen;
 };
 

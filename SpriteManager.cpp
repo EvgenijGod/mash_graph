@@ -74,7 +74,7 @@ void SpriteManager::add(unsigned char cur_tile, int width_pos, int heigt_pos) {
                              Position{16, 16});
             break;
     }
-    map->insert({{width_pos / tileSize, heigt_pos / tileSize}, tmp->get_type()});
+    map->insert({{width_pos / tileSize, heigt_pos / tileSize}, tmp});
     if (tmp->get_layer() == LAYER::BACK_LAYER) {
         _back.emplace_back(tmp);
     } else if (tmp->get_layer() == LAYER::FRONT_LAYER) {
