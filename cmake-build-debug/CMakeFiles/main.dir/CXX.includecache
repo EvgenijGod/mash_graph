@@ -12,12 +12,20 @@ string
 shared.h
 /home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/shared.h
 
-/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Sprite.cpp
+/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Player.cpp
+Player.h
+/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Player.h
+iostream
+-
+
+/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Player.h
+Image.h
+/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Image.h
+map
+-
 Sprite.h
 /home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Sprite.h
 iostream
--
-climits
 -
 
 /home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Sprite.h

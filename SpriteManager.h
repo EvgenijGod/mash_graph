@@ -17,9 +17,7 @@ public:
 
     void draw();
 
-    Player& get_player() {return player;}
-
-    Player player;
+    Player *player;
 
     ~SpriteManager() {
         delete map;
@@ -29,6 +27,7 @@ public:
         for (auto ptr : _front) {
             delete ptr;
         }
+        delete player;
     }
 
 private:

@@ -5,6 +5,7 @@
 
 constexpr int tileSize = 16;
 
+
 constexpr GLsizei WINDOW_WIDTH = tileSize * 57, WINDOW_HEIGHT = tileSize * 57;
 //constexpr GLsizei WINDOW_WIDTH = tileSize * 59, WINDOW_HEIGHT = tileSize * 59;
 
@@ -26,6 +27,8 @@ public:
         std::pair<int, int> first{x, y}, second{tmp.x, tmp.y};
         return first < second;
     }
+
+    Position& operator= (const Position& tmp) = default;
 };
 
 class Pixel {
@@ -38,7 +41,18 @@ public:
     bool operator == (const Pixel &tmp) const {
         return tmp.r == r and tmp.g == g and tmp.b == b and tmp.a == a;
     }
+
+    bool operator != (const Pixel &tmp) const {
+        return !(*this == tmp);
+    }
 };
 
 enum LAYER {BACK_LAYER, FRONT_LAYER};
+
+enum class MovementDir {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+};
 

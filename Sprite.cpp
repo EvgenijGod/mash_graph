@@ -15,6 +15,7 @@ Sprite::Sprite(const std::string &type,
         : type(type), image(file, start_corner, end_corner), pos(position), draw_layer(layer), start_corner(start_corner), end_corner(end_corner) {
     img_height = image.Height();
     img_width = image.Width();
+
     //std::cout << img_width << " " << img_height << "\n";
 }
 
@@ -79,6 +80,4 @@ void Sprite::draw(Image &screen) {
         }
 
     }
-
-
 }

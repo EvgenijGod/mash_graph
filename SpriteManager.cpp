@@ -27,7 +27,7 @@ void SpriteManager::add(unsigned char cur_tile, int width_pos, int heigt_pos) {
             );
             break;
         case '@':
-            player = Player{{width_pos, heigt_pos},
+            player = new Player{{width_pos, heigt_pos},
                             tileSize, map};
             tmp = new Sprite("ground",
                              "../resources/envs/image_part_002.png",
@@ -105,5 +105,5 @@ void SpriteManager::draw() {
         it->draw(screen);
     }
 
-    player.Draw(screen);
+    player->Draw(screen);
 }

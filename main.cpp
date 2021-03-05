@@ -43,15 +43,15 @@ void OnKeyboardPressed(GLFWwindow *window, int key, int scancode, int action, in
     }
 }
 
-void processPlayerMovement(Player &player) {
+void processPlayerMovement(Player *player) {
     if (Input.keys[GLFW_KEY_W])
-        player.ProcessInput(MovementDir::UP);
+        player->ProcessInput(MovementDir::UP);
     else if (Input.keys[GLFW_KEY_S])
-        player.ProcessInput(MovementDir::DOWN);
+        player->ProcessInput(MovementDir::DOWN);
     if (Input.keys[GLFW_KEY_A])
-        player.ProcessInput(MovementDir::LEFT);
+        player->ProcessInput(MovementDir::LEFT);
     else if (Input.keys[GLFW_KEY_D])
-        player.ProcessInput(MovementDir::RIGHT);
+        player->ProcessInput(MovementDir::RIGHT);
 }
 
 void OnMouseButtonClicked(GLFWwindow *window, int button, int action, int mods) {
@@ -146,7 +146,7 @@ int main(int argc, char **argv) {
         gl_error = glGetError();
 
 //    Point starting_pos{.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2};
-//    Player player{starting_pos, tileSize};
+//    Player player_sprite{starting_pos, tileSize};
 
     Image img("../resources/default16x16.png");
     Image screenBuffer(WINDOW_WIDTH, WINDOW_HEIGHT, 4);
@@ -177,9 +177,9 @@ int main(int argc, char **argv) {
             lastFrame = currentFrame;
             glfwPollEvents();
 
-            processPlayerMovement(mg.get_player());
+            processPlayerMovement(mg.player);
             mg.draw();
-            //player.Draw(screenBuffer);
+            //player_sprite.Draw(screenBuffer);
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             GL_CHECK_ERRORS;
