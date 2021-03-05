@@ -11,7 +11,7 @@
 
 class SpriteManager {
 public:
-    explicit SpriteManager(const Image &img) : screen{const_cast<Image &>(img)} {}
+    explicit SpriteManager(const Image &img) : screen{const_cast<Image &>(img)} { }
 
     void add(unsigned char cur_tile, int width_pos, int heigt_pos);
 
@@ -27,10 +27,12 @@ public:
         for (auto ptr : _front) {
             delete ptr;
         }
+
         delete player;
     }
 
 private:
+
     std::vector<Sprite*> _back;
     std::vector<Sprite*> _front;
     std::map<Position, Sprite*> *map = new std::map<Position, Sprite*>();

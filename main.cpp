@@ -145,7 +145,7 @@ int main(int argc, char **argv) {
     while (gl_error != GL_NO_ERROR)
         gl_error = glGetError();
 
-//    Point starting_pos{.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2};
+//    Point starting_pos{.x = PLAY_WINDOW_WIDTH / 2, .y = PLAY_WINDOW_HEIGHT / 2};
 //    Player player_sprite{starting_pos, tileSize};
 
     Image img("../resources/default16x16.png");
@@ -155,18 +155,19 @@ int main(int argc, char **argv) {
     GL_CHECK_ERRORS;
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     GL_CHECK_ERRORS;
+
     //game loop
     std::vector<std::string> floors = {"../floors/first_floor.txt"};
     bool floor_complete = false;
     for (auto &floor_path : floors) {
         std::string cur_floor = read_file(floor_path);
         SpriteManager mg(screenBuffer);
-        for (int i = 0; i < WINDOW_HEIGHT / tileSize; ++i) {
-            for (int j = 0; j < WINDOW_WIDTH / tileSize; ++j) {
-                int cur_ind = i * (WINDOW_WIDTH / tileSize) + j;
+        for (int i = 0; i < PLAY_WINDOW_HEIGHT / tileSize; ++i) {
+            for (int j = 0; j < PLAY_WINDOW_WIDTH / tileSize; ++j) {
+                int cur_ind = i * (PLAY_WINDOW_WIDTH / tileSize) + j;
                 unsigned char cur_tile = cur_floor[cur_ind];
                 //std::cout << cur_tile;
-                mg.add(cur_tile, j * tileSize, (WINDOW_HEIGHT / tileSize - i - 1) * tileSize);
+                mg.add(cur_tile, j * tileSize, (PLAY_WINDOW_HEIGHT / tileSize - i - 1) * tileSize);
             }
             //std::cout << std::endl;
         }

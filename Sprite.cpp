@@ -41,7 +41,13 @@ void Sprite::draw(Image &screen) {
                     break;
                 }
             }
-            screen.PutPixel(x, y, tmp);
+            if (need_draw) {
+                if (Pixel{0, 0, 0, 0} != tmp)
+                    screen.PutPixel(x, y, tmp);
+            } else {
+                screen.PutPixel(x, y, Pixel{0, 0, 0, 0});
+            }
+
         }
     }
 
@@ -60,10 +66,10 @@ void Sprite::draw(Image &screen) {
             for (int y = pos.y - tileSize; y < pos.y + 2 * tileSize; y++) {
                 double x_center = pos.x + 0.5 * tileSize, y_center = pos.y + 0.5 * tileSize;
                 double c = ((x - x_center) * (x - x_center) + (y - y_center) * (y - y_center)) / (radius * radius);
-                if (c > 1) {
+                if (c > 1.2) {
                     c = 0;
                 } else {
-                    c = 1 - c;
+                    c = 1.2 - c;
                 }
                 auto pix = screen.GetPixel_full(x, y);
                 //std::cout << (int)pix.r << " " << c << " \n";
@@ -73,8 +79,6 @@ void Sprite::draw(Image &screen) {
                 } else {
                     pix.r = 255;
                 }
-                //
-                //std::cout << image.Width() << " " << image.Height();
                 screen.PutPixel(x, y, pix);
             }
         }

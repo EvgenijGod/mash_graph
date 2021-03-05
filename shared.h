@@ -6,8 +6,8 @@
 constexpr int tileSize = 16;
 
 
-constexpr GLsizei WINDOW_WIDTH = tileSize * 57, WINDOW_HEIGHT = tileSize * 57;
-//constexpr GLsizei WINDOW_WIDTH = tileSize * 59, WINDOW_HEIGHT = tileSize * 59;
+constexpr GLsizei PLAY_WINDOW_WIDTH = tileSize * 57, PLAY_WINDOW_HEIGHT = tileSize * 57;
+constexpr GLsizei WINDOW_WIDTH = PLAY_WINDOW_WIDTH + tileSize * 10, WINDOW_HEIGHT = PLAY_WINDOW_HEIGHT;
 
 class Position {
 public:

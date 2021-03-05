@@ -20,15 +20,6 @@ public:
            Position start_corner = {0, 0},
            Position end_corner = {0, 0});
 
-    explicit Sprite(const std::string &type,
-           const std::string &file,
-           Position position,
-           MovementDir layer,
-           Position start_corner = {0, 0},
-           Position end_corner = {0, 0});
-
-    Sprite(Position endCorner);
-
     void draw(Image &screen);
 
     LAYER get_layer() const {
@@ -37,6 +28,8 @@ public:
 
     std::string get_type() const {return type;}
 
+    bool need_draw = true;
+
 private:
     std::string type;
     Image image;
@@ -44,6 +37,7 @@ private:
     int img_width, img_height;
     LAYER draw_layer;
     MovementDir dir;
+
     enum Rotation {NORMAL, ROTATE_DOWN_AND_CAPTURE, CAPTURE, ROTATE_LEFT} side = NORMAL;
 
     unsigned short animation = 0;

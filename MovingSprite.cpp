@@ -55,7 +55,7 @@ void MovingSprite::draw(Image &screen) {
 //            std::cout << start_corner.x << ":" << start_corner.y << " " << end_corner.x << ":" <<
 //            end_corner.y << " " << image.Full_Width() << "\n";
 
-            std::cout << img_height << img_width << std::endl;
+            //std::cout << img_height << img_width << std::endl;
             image.CutPart(start_corner,end_corner);
             player_animation = 0;
         }

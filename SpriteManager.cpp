@@ -10,16 +10,24 @@ void SpriteManager::add(unsigned char cur_tile, int width_pos, int heigt_pos) {
     //std::cout << cur_tile << std::endl;
     switch (cur_tile) {
         case 'F':
+            tmp = new Sprite("wall",
+                             "../resources/wall.png",
+                             {width_pos, heigt_pos},
+                             LAYER::BACK_LAYER,
+                             Position{0, 0},
+                             Position{16, 16}
+            );
             _front.emplace_back(new Sprite("fire",
                                           "../resources/fire_16x16.png",
                                           {width_pos, heigt_pos},
                                           LAYER::FRONT_LAYER,
                                           Position{0, 0},
                                           Position{16, 16}));
+            break;
 
         case ' ':
             tmp = new Sprite("empty",
-                             "../resources/default16x16.png",
+                             "../resources/envs/image_part_006.png",
                              {width_pos, heigt_pos},
                              LAYER::BACK_LAYER,
                              Position{0, 0},
@@ -46,6 +54,7 @@ void SpriteManager::add(unsigned char cur_tile, int width_pos, int heigt_pos) {
                              Position{16, 16}
             );
             break;
+
         case '#':
             tmp = new Sprite("wall",
                              "../resources/wall.png",
