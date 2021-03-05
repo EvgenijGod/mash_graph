@@ -27,7 +27,7 @@ struct Player {
     void damage() {
         if (HP_LVL >= 2) {
             //std::cout << "DAMAGED " << _lives.size() << "\n";
-            _lives[HP_LVL]->need_draw = false;
+            _lives[HP_LVL]->draw_normal = false;
             make_damage_effect = 250;
             player_sprite.set_position(default_coords);
             player_sprite.set_dir(MovementDir::DOWN);

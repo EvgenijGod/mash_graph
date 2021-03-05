@@ -65,15 +65,23 @@ void SpriteManager::add(unsigned char cur_tile, int width_pos, int heigt_pos) {
             );
             break;
         case '%':
+            //"../resources/envs/image_part_110.png"
+            _back.emplace_back(new Sprite("ground",
+                                           "../resources/envs/image_part_002.png",
+                                           {width_pos, heigt_pos},
+                                           LAYER::BACK_LAYER,
+                                           Position{0, 0},
+                                           Position{16, 16}));
             tmp = new Sprite("break_able_wall",
-                             "../resources/envs/image_part_110.png",
+                             "../resources/Box_16x16.png",
                              {width_pos, heigt_pos},
-                             LAYER::BACK_LAYER,
+                             LAYER::FRONT_LAYER,
                              Position{0, 0},
                              Position{16, 16}
             );
             break;
         case 'x':
+            //../resources/envs/image_part_002.png
             _back.emplace_back(new Sprite("ground",
                                           "../resources/envs/image_part_002.png",
                                           {width_pos, heigt_pos},
