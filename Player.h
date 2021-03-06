@@ -31,7 +31,9 @@ struct Player {
 
     void damage();
 
-    void throw_snowball() ;
+    bool is_alive();
+
+    void throw_snowball();
 
 private:
 

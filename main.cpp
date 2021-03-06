@@ -164,13 +164,27 @@ int main(int argc, char **argv) {
                                        "../floors/second_floor.txt"};
     int floor_complete = 0;
     int floor_num = 0;
-    int modul = 0, frames_to_start = 20;
+    int modul = 0, frames_to_start = 20, frame_pause = 200;
+    auto dead = Sprite("dead",
+                      "../resources/loose.png",
+                      {PLAY_WINDOW_WIDTH / 13, PLAY_WINDOW_HEIGHT / 3},
+                      LAYER::FRONT_LAYER,
+                      Position{0, 0},
+                      Position{0, 0}
+    );
+    auto win = Sprite("win",
+                       "../resources/win.png",
+                       {PLAY_WINDOW_WIDTH / 13, PLAY_WINDOW_HEIGHT / 3},
+                       LAYER::FRONT_LAYER,
+                       Position{0, 0},
+                       Position{0, 0}
+    );
     for (auto &floor_path : floors) {
         std::cout << floor_path << "\n";
 
         std::string cur_floor = read_file(floor_path);
         SpriteManager mg(screenBuffer, floor_complete);
-        while (!glfwWindowShouldClose(window) && floor_complete == floor_num) {
+        while (!glfwWindowShouldClose(window) && floor_complete == floor_num && frame_pause) {
             if (frames_to_start != modul) {
                 for (int i = 0; i < PLAY_WINDOW_HEIGHT / tileSize; ++i) {
                     for (int j = 0; j < PLAY_WINDOW_WIDTH / tileSize; ++j) {
@@ -193,12 +207,13 @@ int main(int argc, char **argv) {
             lastFrame = currentFrame;
             glfwPollEvents();
 
+            if (mg.player != nullptr && mg.player->is_alive()) {
+                if (frames_to_start == modul) {
+                    processPlayerMovement(mg.player);
+                }
 
-            if (frames_to_start == modul) {
-                processPlayerMovement(mg.player);
+                mg.draw();
             }
-
-            mg.draw();
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             GL_CHECK_ERRORS;
@@ -206,13 +221,37 @@ int main(int argc, char **argv) {
             GL_CHECK_ERRORS;
 
             glfwSwapBuffers(window);
+
+            if (mg.player != nullptr && !mg.player->is_alive()){
+                dead.draw(screenBuffer);
+                frame_pause -= 1;
+            }
+
+        }
+        if (!frame_pause) {
+            break;
         }
         if (floor_complete == 2) {
+            while (frame_pause) {
+                glfwPollEvents();
+
+                win.draw(screenBuffer);
+
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                GL_CHECK_ERRORS;
+                glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data());
+                GL_CHECK_ERRORS;
+
+                glfwSwapBuffers(window);
+
+                frame_pause -= 1;
+            }
             break;
         }
         std::cout << "LVL COMPLETE\n";
         floor_num += 1;
         modul = 0;
+        frame_pause = 200;
     }
     glfwTerminate();
     return 0;

@@ -189,7 +189,7 @@ void Player::Draw(Image &screen) {
 }
 
 void Player::damage(){
-    if (HP_LVL >= 2) {
+    if (HP_LVL >= 1) {
         //std::cout << "DAMAGED " << HP_LVL << "\n";
         _lives[HP_LVL]->draw_normal = false;
         //std::cout
@@ -200,7 +200,10 @@ void Player::damage(){
         old_coords = default_coords;
         HP_LVL -= 1;
     }
-    // TODO: add death
+}
+
+bool Player::is_alive() {
+    return (HP_LVL >= 1);
 }
 
 void Player::throw_snowball() {
