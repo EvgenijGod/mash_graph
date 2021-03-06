@@ -12,7 +12,9 @@
 class SpriteManager {
 public:
     explicit SpriteManager(const Image &img, int &floor_complete) :
-            screen{const_cast<Image &>(img)}, floor_complete{floor_complete} {}
+            screen{const_cast<Image &>(img)}, floor_complete{floor_complete} {
+        player = nullptr;
+    }
 
     void add(unsigned char cur_tile, int width_pos, int heigt_pos);
 
@@ -21,13 +23,14 @@ public:
     Player *player;
 
     ~SpriteManager() {
-        delete map;
         for (auto ptr : _back) {
             delete ptr;
         }
         for (auto ptr : _front) {
             delete ptr;
         }
+
+        delete map;
 
         delete player;
     }

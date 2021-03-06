@@ -121,6 +121,6 @@ void SpriteManager::draw() {
     for (auto it : _front) {
         it->draw(screen);
     }
-
-    player->Draw(screen);
+    if (player != nullptr)
+        player->Draw(screen);
 }
