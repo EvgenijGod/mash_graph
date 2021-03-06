@@ -47,7 +47,7 @@ struct Player {
     void throw_snowball() {
         if (hit_freeze == 0) {
             _balls.emplace_back(new SnowBall("snowball",
-                                             "../resources/snowball.png",
+                                             "../resources/snowball_sprite.png",
                                              coords,
                                              cur_state,
                                              Position{0, 0},

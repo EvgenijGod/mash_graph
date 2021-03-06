@@ -25,20 +25,20 @@ public:
         dir = new_dir;
         switch (dir) {
             case MovementDir::UP: {
-                side = NORMAL;
+                side = RIGHT;
                 break;
             }
             case MovementDir::DOWN: {
-                side = DOWN;
+                side = LEFT;
                 break;
             }
             case MovementDir::LEFT: {
-                side = LEFT;
+                side = NORMAL;
                 break;
             }
             case MovementDir::RIGHT: {
                 //std::cout << "RIGHT_SET\n";
-                side = RIGHT;
+                side = SNOWBALL_RIGHT;
                 break;
             }
         }
@@ -50,8 +50,8 @@ public:
             //std::cout << "A\n";
             player_animation++;
             if (player_animation > step) {
-                start_corner.x = (start_corner.x + tileSize) % (3 * tileSize);
-                end_corner.x = end_corner.x % (3 * tileSize) + tileSize;
+                start_corner.x = (start_corner.x + tileSize) % (6 * tileSize);
+                end_corner.x = end_corner.x % (6 * tileSize) + tileSize;
 
 //            std::cout << start_corner.x << ":" << start_corner.y << " " << end_corner.x << ":" <<
 //            end_corner.y << " " << image.Full_Width() << "\n";

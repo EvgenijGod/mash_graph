@@ -63,7 +63,7 @@ protected:
     Position pos, start_corner, end_corner;
     int img_width, img_height;
     LAYER draw_layer;
-    enum Rotation {NORMAL, LEFT, RIGHT, DOWN} side = NORMAL;
+    enum Rotation {NORMAL, LEFT, RIGHT, DOWN, SNOWBALL_RIGHT} side = NORMAL;
 
     unsigned short animation = 0, player_animation = 0;
     bool animating = false;

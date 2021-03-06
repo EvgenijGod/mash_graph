@@ -44,6 +44,10 @@ void MovingSprite::draw(Image &screen) {
                         tmp = image.GetPixel_part(img_height - (y - pos.y) - 1, img_width - (x - pos.x) - 1);
                         break;
                     }
+                    case SNOWBALL_RIGHT: {
+                        tmp = image.GetPixel_part(img_width - (x - pos.x) - 1, y - pos.y);
+                        break;
+                    }
                 }
                 if (draw_normal) {
                     if (Pixel{0, 0, 0, 0} != tmp)
