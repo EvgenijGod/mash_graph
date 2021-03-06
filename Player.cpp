@@ -2,13 +2,18 @@
 #include <iostream>
 
 
-Player::Player(Position pos = {1, 1}, int tileSize = 16, std::map<Position, Sprite *> *map = nullptr) :
+Player::Player(Position pos, int tileSize, std::map<Position, Sprite *> *map,
+               int &floor_complete) :
         player_sprite{"player",
                       "../resources/player.png",
                       pos,
                       MovementDir::DOWN,
                       {0, 0},
-                      {16, 16}}, coords(pos), old_coords(coords), tileSize(tileSize) {
+                      {16, 16}},
+        coords(pos),
+        old_coords(coords),
+        tileSize(tileSize),
+        floor_complete{floor_complete} {
     default_coords = coords;
     this->map = map;
     _lives.emplace_back(new Sprite("hp_bar",
@@ -100,11 +105,14 @@ void Player::ProcessInput(MovementDir dir) {
         default:
             break;
     }
+    if (name == "exit") {
+        floor_complete += 1;
+    }
     if (Moved()) {
         player_sprite.set_dir(dir);
         player_sprite.set_position(coords);
         bool tmp = false;
-        iter = map->find({(coords.x + move_dist + bias) / tileSize, (coords.y + move_dist + bias)  / tileSize});
+        iter = map->find({(coords.x + move_dist + bias) / tileSize, (coords.y + move_dist + bias) / tileSize});
         if (iter == map->end()) {
             std::cout << "Map Error\n";
             return;
@@ -114,7 +122,7 @@ void Player::ProcessInput(MovementDir dir) {
             tmp = true;
         }
         if (tmp == false) {
-            iter = map->find({(coords.x ) / tileSize, (coords.y )  / tileSize});
+            iter = map->find({(coords.x) / tileSize, (coords.y) / tileSize});
             if (iter == map->end()) {
                 std::cout << "Map Error\n";
                 return;
@@ -178,5 +186,33 @@ void Player::Draw(Image &screen) {
 //            screen.PutPixel(x, y, color);
 //        }
 //    }
+}
+
+void Player::damage(){
+    if (HP_LVL >= 2) {
+        //std::cout << "DAMAGED " << HP_LVL << "\n";
+        _lives[HP_LVL]->draw_normal = false;
+        //std::cout
+        make_damage_effect = 250;
+        player_sprite.set_position(default_coords);
+        player_sprite.set_dir(MovementDir::DOWN);
+        coords = default_coords;
+        old_coords = default_coords;
+        HP_LVL -= 1;
+    }
+    // TODO: add death
+}
+
+void Player::throw_snowball() {
+    if (hit_freeze == 0) {
+        _balls.emplace_back(new SnowBall("snowball",
+                                         "../resources/snowball_sprite.png",
+                                         coords,
+                                         cur_state,
+                                         Position{0, 0},
+                                         Position{16, 16},
+                                         map));
+        hit_freeze = 10;
+    }
 }
 

@@ -25,32 +25,7 @@ public:
         this->pos.x = tmp.x;
     }
 
-    virtual void set_dir(const MovementDir new_dir) {
-        dir = new_dir;
-        switch (dir) {
-            case MovementDir::UP: {
-                start_corner.y = 48;
-                end_corner.y = 64;
-                break;
-            }
-            case MovementDir::DOWN: {
-                start_corner.y = 0;
-                end_corner.y = 16;
-                break;
-            }
-            case MovementDir::LEFT: {
-                start_corner.y = 16;
-                end_corner.y = 32;
-                break;
-            }
-            case MovementDir::RIGHT: {
-                start_corner.y = 32;
-                end_corner.y = 48;
-                break;
-            }
-        }
-        animating = true;
-    }
+    virtual void set_dir(const MovementDir new_dir) ;
 
     std::string get_type() const {return type;}
 

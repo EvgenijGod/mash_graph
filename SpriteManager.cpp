@@ -36,7 +36,7 @@ void SpriteManager::add(unsigned char cur_tile, int width_pos, int heigt_pos) {
             break;
         case '@':
             player = new Player{{width_pos, heigt_pos},
-                            tileSize, map};
+                            tileSize, map, floor_complete};
             tmp = new Sprite("ground",
                              "../resources/envs/image_part_002.png",
                              {width_pos, heigt_pos},

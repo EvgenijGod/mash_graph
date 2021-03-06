@@ -160,11 +160,15 @@ int main(int argc, char **argv) {
     GL_CHECK_ERRORS;
 
     //game loop
-    std::vector<std::string> floors = {"../floors/first_floor.txt"};
-    bool floor_complete = false;
+    std::vector<std::string> floors = {"../floors/first_floor.txt",
+                                       "../floors/second_floor.txt"};
+    int floor_complete = 0;
+    int i = 0;
     for (auto &floor_path : floors) {
+        std::cout << floor_path << "\n";
+
         std::string cur_floor = read_file(floor_path);
-        SpriteManager mg(screenBuffer);
+        SpriteManager mg(screenBuffer, floor_complete);
         for (int i = 0; i < PLAY_WINDOW_HEIGHT / tileSize; ++i) {
             for (int j = 0; j < PLAY_WINDOW_WIDTH / tileSize; ++j) {
                 int cur_ind = i * (PLAY_WINDOW_WIDTH / tileSize) + j;
@@ -173,8 +177,8 @@ int main(int argc, char **argv) {
                 mg.add(cur_tile, j * tileSize, (PLAY_WINDOW_HEIGHT / tileSize - i - 1) * tileSize);
             }
         }
-
-        while (!glfwWindowShouldClose(window)) {
+        std::cout << floor_complete << std::endl;
+        while (!glfwWindowShouldClose(window) && floor_complete == i) {
             GLfloat currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
@@ -191,9 +195,11 @@ int main(int argc, char **argv) {
 
             glfwSwapBuffers(window);
         }
-        if (floor_complete == false) {
+        if (floor_complete == 2) {
             break;
         }
+        std::cout << "LVL COMPLETE\n";
+        i += 1;
     }
     glfwTerminate();
     return 0;

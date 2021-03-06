@@ -11,7 +11,8 @@
 
 class SpriteManager {
 public:
-    explicit SpriteManager(const Image &img) : screen{const_cast<Image &>(img)} { }
+    explicit SpriteManager(const Image &img, int &floor_complete) :
+            screen{const_cast<Image &>(img)}, floor_complete{floor_complete} {}
 
     void add(unsigned char cur_tile, int width_pos, int heigt_pos);
 
@@ -32,10 +33,10 @@ public:
     }
 
 private:
-
-    std::vector<Sprite*> _back;
-    std::vector<Sprite*> _front;
-    std::map<Position, Sprite*> *map = new std::map<Position, Sprite*>();
+    int &floor_complete;
+    std::vector<Sprite *> _back;
+    std::vector<Sprite *> _front;
+    std::map<Position, Sprite *> *map = new std::map<Position, Sprite *>();
     Image &screen;
 };
 

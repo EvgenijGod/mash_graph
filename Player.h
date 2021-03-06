@@ -12,7 +12,7 @@
 
 struct Player {
 
-    explicit Player(Position pos, int tileSize, std::map<Position, Sprite *> *map);
+    explicit Player(Position pos, int tileSize, std::map<Position, Sprite *> *map, int &floor_complete);
 
     bool Moved() const;
 
@@ -29,41 +29,19 @@ struct Player {
         }
     }
 
-    void damage() {
-        if (HP_LVL >= 2) {
-            std::cout << "DAMAGED " << HP_LVL << "\n";
-            _lives[HP_LVL]->draw_normal = false;
-            //std::cout
-            make_damage_effect = 250;
-            player_sprite.set_position(default_coords);
-            player_sprite.set_dir(MovementDir::DOWN);
-            coords = default_coords;
-            old_coords = default_coords;
-            HP_LVL -= 1;
-        }
-        // TODO: add death
-    }
+    void damage();
 
-    void throw_snowball() {
-        if (hit_freeze == 0) {
-            _balls.emplace_back(new SnowBall("snowball",
-                                             "../resources/snowball_sprite.png",
-                                             coords,
-                                             cur_state,
-                                             Position{0, 0},
-                                             Position{16, 16},
-                                             map));
-            hit_freeze = 10;
-        }
-    }
+    void throw_snowball() ;
 
 private:
+
     int HP_LVL = 5;
     std::vector<Sprite *> _lives;
     std::deque<SnowBall *> _balls;
     MovingSprite player_sprite;
-    MovementDir cur_state = MovementDir::UP;
+    MovementDir cur_state = MovementDir::DOWN;
     std::map<Position, Sprite *> *map;
+    int &floor_complete;
     Position coords{10, 10}, default_coords{0, 0};
     Position old_coords{10, 10};
     Pixel color{.r = 255, .g = 255, .b = 0, .a = 255};
