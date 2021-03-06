@@ -22,12 +22,15 @@ struct InputState {
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
+bool esc_pressed = false;
+
 
 void OnKeyboardPressed(GLFWwindow *window, int key, int scancode, int action, int mode) {
     switch (key) {
         case GLFW_KEY_ESCAPE:
             if (action == GLFW_PRESS)
-                glfwSetWindowShouldClose(window, GL_TRUE);
+                esc_pressed = true;
+            glfwSetWindowShouldClose(window, GL_TRUE);
             break;
         case GLFW_KEY_1:
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -103,6 +106,7 @@ int initGL() {
     std::cout << "Controls: " << std::endl;
     std::cout << "press right mouse button to capture/release mouse cursor  " << std::endl;
     std::cout << "W, A, S, D - movement  " << std::endl;
+    std::cout << "Q - throw snowball  " << std::endl;
     std::cout << "press ESC to exit" << std::endl;
 
     return 0;
@@ -166,21 +170,30 @@ int main(int argc, char **argv) {
     int floor_num = 0;
     int modul = 0, frames_to_start = 20, frame_pause = 200;
     auto dead = Sprite("dead",
-                      "../resources/loose.png",
-                      {PLAY_WINDOW_WIDTH / 13, PLAY_WINDOW_HEIGHT / 3},
-                      LAYER::FRONT_LAYER,
-                      Position{0, 0},
-                      Position{0, 0}
-    );
-    auto win = Sprite("win",
-                       "../resources/win.png",
+                       "../resources/loose.png",
                        {PLAY_WINDOW_WIDTH / 13, PLAY_WINDOW_HEIGHT / 3},
                        LAYER::FRONT_LAYER,
                        Position{0, 0},
                        Position{0, 0}
     );
+    auto passed = Sprite("passed",
+                         "../resources/passed.jpg",
+                         {PLAY_WINDOW_WIDTH / 13, PLAY_WINDOW_HEIGHT / 3},
+                         LAYER::FRONT_LAYER,
+                         Position{0, 0},
+                         Position{0, 0}
+    );
+    auto win = Sprite("win",
+                      "../resources/win.png",
+                      {PLAY_WINDOW_WIDTH / 13, PLAY_WINDOW_HEIGHT / 3},
+                      LAYER::FRONT_LAYER,
+                      Position{0, 0},
+                      Position{0, 0}
+    );
+
+
     for (auto &floor_path : floors) {
-        std::cout << floor_path << "\n";
+        //std::cout << floor_path << "\n";
 
         std::string cur_floor = read_file(floor_path);
         SpriteManager mg(screenBuffer, floor_complete);
@@ -207,13 +220,16 @@ int main(int argc, char **argv) {
             lastFrame = currentFrame;
             glfwPollEvents();
 
-            if (mg.player != nullptr && mg.player->is_alive()) {
-                if (frames_to_start == modul) {
-                    processPlayerMovement(mg.player);
+            if (mg.player != nullptr) {
+                if (mg.player->is_alive()) {
+                    if (frames_to_start == modul) {
+                        processPlayerMovement(mg.player);
+                    }
+                } else {
+                    break;;
                 }
-
-                mg.draw();
             }
+            mg.draw();
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             GL_CHECK_ERRORS;
@@ -222,7 +238,7 @@ int main(int argc, char **argv) {
 
             glfwSwapBuffers(window);
 
-            if (mg.player != nullptr && !mg.player->is_alive()){
+            if (mg.player != nullptr && !mg.player->is_alive()) {
                 dead.draw(screenBuffer);
                 frame_pause -= 1;
             }
@@ -231,24 +247,27 @@ int main(int argc, char **argv) {
         if (!frame_pause) {
             break;
         }
-        if (floor_complete == 2) {
-            while (frame_pause) {
-                glfwPollEvents();
+        while (frame_pause && !esc_pressed) {
+            glfwPollEvents();
 
+            if (floor_complete == 2)
                 win.draw(screenBuffer);
+            else if (floor_complete == 1)
+                passed.draw(screenBuffer);
 
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-                GL_CHECK_ERRORS;
-                glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data());
-                GL_CHECK_ERRORS;
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            GL_CHECK_ERRORS;
+            glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data());
+            GL_CHECK_ERRORS;
 
-                glfwSwapBuffers(window);
+            glfwSwapBuffers(window);
 
-                frame_pause -= 1;
-            }
+            frame_pause -= 1;
+        }
+        if (floor_complete == 2) {
             break;
         }
-        std::cout << "LVL COMPLETE\n";
+        //std::cout << "LVL COMPLETE\n";
         floor_num += 1;
         modul = 0;
         frame_pause = 200;
