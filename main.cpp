@@ -52,6 +52,9 @@ void processPlayerMovement(Player *player) {
         player->ProcessInput(MovementDir::LEFT);
     else if (Input.keys[GLFW_KEY_D])
         player->ProcessInput(MovementDir::RIGHT);
+    if (Input.keys[GLFW_KEY_Q]) {
+        player->throw_snowball();
+    }
 }
 
 void OnMouseButtonClicked(GLFWwindow *window, int button, int action, int mods) {
@@ -169,7 +172,6 @@ int main(int argc, char **argv) {
                 //std::cout << cur_tile;
                 mg.add(cur_tile, j * tileSize, (PLAY_WINDOW_HEIGHT / tileSize - i - 1) * tileSize);
             }
-            //std::cout << std::endl;
         }
 
         while (!glfwWindowShouldClose(window)) {

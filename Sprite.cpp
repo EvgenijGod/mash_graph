@@ -20,9 +20,9 @@ Sprite::Sprite(const std::string &type,
 }
 
 void Sprite::draw(Image &screen) {
-    if (draw_normal == false) {
-        need_draw = false;
-    }
+//    if (draw_normal == false) {
+//        need_draw = false;
+//    }
     if (need_draw) {
         for (int y = pos.y; y < pos.y + img_height; y++) {
             for (int x = pos.x; x < pos.x + img_width; x++) {
@@ -50,9 +50,9 @@ void Sprite::draw(Image &screen) {
                         screen.PutPixel(x, y, tmp);
                 } else {
                     // draw black
+                    need_draw = false;
                     screen.PutPixel(x, y, Pixel{0, 0, 0, 0});
                 }
-
             }
         }
 

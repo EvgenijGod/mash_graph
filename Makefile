@@ -224,6 +224,33 @@ Player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Player.cpp.s
 .PHONY : Player.cpp.s
 
+SnowBall.o: SnowBall.cpp.o
+
+.PHONY : SnowBall.o
+
+# target to build an object file
+SnowBall.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/SnowBall.cpp.o
+.PHONY : SnowBall.cpp.o
+
+SnowBall.i: SnowBall.cpp.i
+
+.PHONY : SnowBall.i
+
+# target to preprocess a source file
+SnowBall.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/SnowBall.cpp.i
+.PHONY : SnowBall.cpp.i
+
+SnowBall.s: SnowBall.cpp.s
+
+.PHONY : SnowBall.s
+
+# target to generate assembly for a file
+SnowBall.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/SnowBall.cpp.s
+.PHONY : SnowBall.cpp.s
+
 Sprite.o: Sprite.cpp.o
 
 .PHONY : Sprite.o
@@ -350,6 +377,9 @@ help:
 	@echo "... Player.o"
 	@echo "... Player.i"
 	@echo "... Player.s"
+	@echo "... SnowBall.o"
+	@echo "... SnowBall.i"
+	@echo "... SnowBall.s"
 	@echo "... Sprite.o"
 	@echo "... Sprite.i"
 	@echo "... Sprite.s"

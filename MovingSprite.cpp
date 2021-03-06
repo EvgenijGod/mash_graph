@@ -20,32 +20,45 @@ MovingSprite::MovingSprite(const std::string &type,
 }
 
 void MovingSprite::draw(Image &screen) {
-    for (int y = pos.y; y < pos.y + img_height; y++) {
-        for (int x = pos.x; x < pos.x + img_width; x++) {
-            Pixel tmp{};
-            switch (side) {
-                case ROTATE_LEFT: {
-                    tmp = image.GetPixel_part(x - pos.x, y - pos.y);
-                    break;
+    if (draw_normal == false) {
+        need_draw = false;
+    }
+    if (need_draw) {
+        for (int y = pos.y; y < pos.y + img_height; y++) {
+            for (int x = pos.x; x < pos.x + img_width; x++) {
+                Pixel tmp{};
+                switch (side) {
+                    case DOWN: {
+                        tmp = image.GetPixel_part(x - pos.x, y - pos.y);
+                        break;
+                    }
+                    case LEFT: {
+                        tmp = image.GetPixel_part(y - pos.y, x - pos.x);
+                        break;
+                    }
+                    case NORMAL: {
+                        tmp = image.GetPixel_part(x - pos.x, img_height - (y - pos.y) - 1);
+                        break;
+                    }
+                    case RIGHT: {
+                        tmp = image.GetPixel_part(img_height - (y - pos.y) - 1, img_width - (x - pos.x) - 1);
+                        break;
+                    }
                 }
-                case ROTATE_DOWN_AND_CAPTURE: {
-                    tmp = image.GetPixel_part(y - pos.y, x - pos.x);
-                    break;
-                }
-                case NORMAL: {
-                    tmp = image.GetPixel_part(x - pos.x, img_height - (y - pos.y) - 1);
-                    break;
-                }
-                case CAPTURE: {
-                    tmp = image.GetPixel_part(img_height - (y - pos.y) - 1, img_width - (x - pos.x) - 1);
-                    break;
+                if (draw_normal) {
+                    if (Pixel{0, 0, 0, 0} != tmp)
+                        screen.PutPixel(x, y, tmp);
+                } else {
+                    // draw black
+                    screen.PutPixel(x, y, Pixel{0, 0, 0, 0});
                 }
             }
-            if (tmp != Pixel{0, 0, 0, 0})
-                screen.PutPixel(x, y, tmp);
         }
+        draw_animation(screen);
     }
+}
 
+void MovingSprite::draw_animation(Image &screen) {
     if (type == "player" && animating) {
         player_animation++;
         if (player_animation > step) {
@@ -61,6 +74,6 @@ void MovingSprite::draw(Image &screen) {
         }
         animating = false;
     }
-
-
 }
+
+

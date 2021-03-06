@@ -18,13 +18,14 @@ public:
 
     void draw(Image &screen);
 
+    virtual void draw_animation(Image &screen);
 
-    void set_position(const Position &tmp) {
+    virtual void set_position(const Position &tmp) {
         this->pos.y = tmp.y;
         this->pos.x = tmp.x;
     }
 
-    void set_dir(const MovementDir new_dir) {
+    virtual void set_dir(const MovementDir new_dir) {
         dir = new_dir;
         switch (dir) {
             case MovementDir::UP: {
@@ -53,18 +54,21 @@ public:
 
     std::string get_type() const {return type;}
 
-private:
+    bool draw_normal = true;
+    bool need_draw = true;
+
+protected:
     std::string type;
     Image image;
     Position pos, start_corner, end_corner;
     int img_width, img_height;
     LAYER draw_layer;
-    MovementDir dir;
-    enum Rotation {NORMAL, ROTATE_DOWN_AND_CAPTURE, CAPTURE, ROTATE_LEFT} side = NORMAL;
+    enum Rotation {NORMAL, LEFT, RIGHT, DOWN} side = NORMAL;
 
     unsigned short animation = 0, player_animation = 0;
     bool animating = false;
     unsigned short step = 4;
+    MovementDir dir;
 };
 
 

@@ -88,6 +88,12 @@
 		<Unit filename="/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Player.h">
 			<Option target="main"/>
 		</Unit>
+		<Unit filename="/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/SnowBall.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/SnowBall.h">
+			<Option target="main"/>
+		</Unit>
 		<Unit filename="/home/evgenijk/CLionProjects/msu_cmc_cg_2021-master/Sprite.cpp">
 			<Option target="main"/>
 		</Unit>

@@ -28,6 +28,8 @@ public:
 
     std::string get_type() const {return type;}
 
+    void set_type(const std::string &tmp)  {type = tmp;}
+
     bool draw_normal = true;
     bool need_draw = true;
 

@@ -55,8 +55,8 @@ void Player::ProcessInput(MovementDir dir) {
             if (name == "ground" || name == "empty" || name == "exit") {
                 old_coords.y = coords.y;
                 coords.y += move_dist;
-                //cur_state = MovementDir::UP;
             }
+            cur_state = MovementDir::UP;
             break;
         case MovementDir::DOWN:
             iter = map->find({coords.x / tileSize, (coords.y - move_dist) / tileSize});
@@ -68,8 +68,8 @@ void Player::ProcessInput(MovementDir dir) {
             if (name == "ground" || name == "empty" || name == "exit") {
                 old_coords.y = coords.y;
                 coords.y -= move_dist;
-                //cur_state = MovementDir::DOWN;
             }
+            cur_state = MovementDir::DOWN;
             break;
         case MovementDir::LEFT:
             iter = map->find({(coords.x - move_dist) / tileSize, coords.y / tileSize});
@@ -81,8 +81,8 @@ void Player::ProcessInput(MovementDir dir) {
             if (name == "ground" || name == "empty" || name == "exit") {
                 old_coords.x = coords.x;
                 coords.x -= move_dist;
-                //cur_state = MovementDir::LEFT;
             }
+            cur_state = MovementDir::LEFT;
             break;
         case MovementDir::RIGHT:
             iter = map->find({(coords.x + move_dist + bias) / tileSize, coords.y / tileSize});
@@ -94,8 +94,8 @@ void Player::ProcessInput(MovementDir dir) {
             if (name == "ground" || name == "empty" || name == "exit") {
                 old_coords.x = coords.x;
                 coords.x += move_dist;
-                //cur_state = MovementDir::RIGHT;
             }
+            cur_state = MovementDir::RIGHT;
             break;
         default:
             break;
@@ -131,10 +131,21 @@ void Player::ProcessInput(MovementDir dir) {
 }
 
 void Player::Draw(Image &screen) {
+    if (hit_freeze > 0)
+        hit_freeze -= 1;
     player_sprite.draw(screen);
 
     for (auto it : _lives) {
         it->draw(screen);
+    }
+
+    for (auto it : _balls) {
+        it->draw(screen);
+    }
+
+    while (!_balls.empty() && !_balls[0]->is_alive()) {
+        delete _balls[0];
+        _balls.pop_front();
     }
 
     if (make_damage_effect != 0) {
