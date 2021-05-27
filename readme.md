@@ -43,5 +43,5 @@ cd bin
 
 https://www.shadertoy.com/view/sslXRf
 
-/task2.png
+![](/task2.png)
 
